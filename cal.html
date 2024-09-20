@@ -1,0 +1,107 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculator with Two Screens</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #f0f0f0;
+        }
+        .calculator {
+            background-color: white;
+            padding:50px;
+            border-radius: 20px;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 10px;
+        }
+        .screen {
+            grid-column: span 5;
+            padding: 10px;
+            font-size: 1.2em;
+            border-radius: 5px;
+            border: 2px solid #ccc;
+            background-color: #2fff1c70;
+        }
+        .main-screen {
+            font-size: 1.5em;
+            background-color: #fff;
+            color: black;
+            margin-bottom: 10px;
+        }
+        .calculator button {
+            padding: 20px;
+            font-size: 1.2em;
+            border: none;
+            border-radius: 5px;
+            background-color: #007bff;
+            color: white;
+            cursor: pointer;
+        }
+        .calculator button:hover {
+            background-color: #0056b3;
+        }
+        
+    </style>
+</head>
+<body>
+    <div class="calculator">
+        <div class="screen" id="history-screen"> </div>
+        <input type="text" id="main-screen" class="screen main-screen" readonly>
+        <button onclick="clearScreen()">AC</button>
+        <button onclick="display('/')">/</button>
+        <button onclick="display('*')">*</button>
+        <button onclick="backspace()">←</button>
+        <button onclick="display('%')">%</button>
+        <button onclick="display('+')">+</button>
+        <button onclick="display('9')">9</button>
+        <button onclick="display('8')">8</button>
+        <button onclick="display('7')">7</button>
+        <button onclick="display('6')">6</button>
+        <button onclick="display('-')">-</button>
+        <button onclick="display('5')">5</button>
+        <button onclick="display('4')">4</button>
+        <button onclick="display('3')">3</button>
+        <button onclick="display('2')">2</button>
+        <button onclick="display('.')">.</button>
+        <button onclick="display('1')">1</button>
+        <button onclick="display('0')">0</button>
+        <button onclick="display('00')">00</button>
+        <button class="span-two" onclick="calculate()" style="background-color: rgb(255, 119, 0); color: white;">=</button>
+        
+    </div>
+
+    <script>
+        function display(value) {
+            document.getElementById("main-screen").value += value;
+        }
+
+        function clearScreen() {
+            document.getElementById("main-screen").value = "";
+            document.getElementById("history-screen").innerText = "History: ";
+        }
+
+        function backspace() {
+            var result = document.getElementById("main-screen").value;
+            document.getElementById("main-screen").value = result.slice(0, -1);
+        }
+
+        function calculate() {
+            var result = document.getElementById("main-screen").value;
+            var historyScreen = document.getElementById("history-screen");
+            var newResult = eval(result);
+            document.getElementById("main-screen").value =newResult;
+            historyScreen.innerText += result ;
+        }
+  </script>
+</body>
+</html>
